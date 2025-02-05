@@ -26,11 +26,8 @@ int	ft_atoi(const char *str)
 		|| str[a] == '\f' || str[a] == '\v')
 		a++;
 	if (str[a] == '-')
-	{
 		sign = -1;
-		a++;
-	}
-	else if (str[a] == '+')
+	if (str[a] == '+' || str[a] == '-')
 		a++;
 	while (str[a] >= 48 && str[a] <= 57)
 	{

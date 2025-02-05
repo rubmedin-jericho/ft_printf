@@ -19,7 +19,7 @@ void	ptrnbr_base(unsigned long n, int base)
 
 	if((void *)n == NULL)
 	{
-		write(1, "(nil)",6);
+		write(1, "(nil)", 6);
 		return ;
 	}
 	buff = "0123456789abcdef";
@@ -47,20 +47,33 @@ void	ptrnbr_base(unsigned long n, int base)
 //	ft_putchar_fd(buff[n % base], 1);
 //}
 
-//void	putdec(char *str)
-//{
-//	int	i;
-//
-//	i = 0;
-//	while(str[i])
-//	{
-//		if(ft_isdigit(str[i]))
-//			write(1, &str[i], 1);
-//		else if(str[i] == '.' && ft_isdigit(str[i + 1]))
-//			write(1, ".", 1);
-//		i++;
-//	}
-//}
+void	ft_atoi_sinsing(const char *str)
+{
+	int		a;
+	size_t	nb;
+
+	a = 0;
+	nb = 0;
+	while (str[a] == ' ' || str[a] == '\n'
+		|| str[a] == '\t' || str[a] == '\r'
+		|| str[a] == '\f' || str[a] == '\v')
+		a++;
+	if (str[a] == '+')
+		a++;
+	while (str[a] >= 48 && str[a] <= 57)
+	{
+		nb = (nb * 10) + (str[a] - '0');
+		a++;
+	}
+	ft_putnbr_fd(nb, 1);
+}
+
+void	put_nbr(unsigned long n)
+{
+	if (n >= 10)
+		put_nbr(n / 10);
+	ft_putchar_fd((int)n % 10 + '0', 1);
+}
 
 void	switch_function(char c, char *arg)
 {
@@ -70,13 +83,12 @@ void	switch_function(char c, char *arg)
 		ft_putstr_fd(arg, 1);
 	else if(c == 'p')
 		ptrnbr_base((unsigned long)arg, 16);
-	else if (c == 'd')
-	
-//	else if (c == 'i')	
-//	{}
-//		ft_putnbr_fd(ft_atoi(arg), 1);
-//	else if (c == 'u')
-//		printf(" u ");
+	else if (c == 'd')	
+		ft_putnbr_fd(ft_atoi(arg), 1);
+	else if (c == 'i')	
+		ft_putnbr_fd(ft_atoi(arg), 1);
+	else if (c == 'u')
+		put_nbr(ft_atoi(arg));	
 //	else if (c == 'x')
 //		printf(" x ");
 //	else if (c == 'X')
@@ -116,7 +128,7 @@ int	main()
 {
 	char *str = "hola";
 	
-	ft_printf("hola jajaj caracter: %c\n  string: %s\n  memory address: %p\n", "R", "hola", str);
-	printf("memory address original: %p\n", str);
+	ft_printf("caracter: %c\nstring: %s\nmemory address: %p\ndecimal: %d\ninteger: %i\ninteger sin signo: %u\n", "R", "hola", str, "234.1", "1234567", "-1235");
+	printf("num sinsig original: %u\n", -1235);
 	return (0);
 }
