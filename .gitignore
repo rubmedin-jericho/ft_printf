@@ -2,3 +2,4 @@ squashfs-root
 *.o
 *.out
 *.a
+*.gch
