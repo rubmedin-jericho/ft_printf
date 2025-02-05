@@ -13,16 +13,20 @@
 #include "ft_printf.h"
 #include <stdio.h> 
 
-void	ptrnbr_base(void *nbr, int base)
+void	ptrnbr_base(unsigned long n, int base)
 {
 	char *buff;
-	unsigned long n;
 
-	n = (unsigned long)nbr;
+	if((void *)n == NULL)
+	{
+		write(1, "(nil)",6);
+		return ;
+	}
 	buff = "0123456789abcdef";
-	write(1, "0x", 2);
 	if (n >= (unsigned long)base)
 		ptrnbr_base((n / base), base);
+	else if(n < (unsigned long)base && (void *)n != NULL)
+		write(1, "0x", 2);
 	ft_putchar_fd(buff[n % base], 1);
 }
 
@@ -60,7 +64,6 @@ void	ptrnbr_base(void *nbr, int base)
 
 void	switch_function(char c, char *arg)
 {
-	(void)arg;
 	if(c == 'c')
 		ft_putchar_fd(arg[0], 1);	
 	else if( c == 's')
@@ -68,19 +71,18 @@ void	switch_function(char c, char *arg)
 	else if(c == 'p')
 		ptrnbr_base((unsigned long)arg, 16);
 	else if (c == 'd')
-	{}
-//		funtion
-	else if (c == 'i')	
-	{}
+	
+//	else if (c == 'i')	
+//	{}
 //		ft_putnbr_fd(ft_atoi(arg), 1);
-	else if (c == 'u')
-		printf(" u ");
-	else if (c == 'x')
-		printf(" x ");
-	else if (c == 'X')
-		printf(" X ");
-	else if (c == '%')
-		printf(" XD ");
+//	else if (c == 'u')
+//		printf(" u ");
+//	else if (c == 'x')
+//		printf(" x ");
+//	else if (c == 'X')
+//		printf(" X ");
+//	else if (c == '%')
+//		printf(" XD ");
 }
 
 int ft_printf(char const *s, ...)
@@ -112,8 +114,9 @@ int ft_printf(char const *s, ...)
 
 int	main()
 {
-	char *str = NULL;
+	char *str = "hola";
 	
-	ft_printf("hola jajaj caracter: %c  string: %s  memory address: %p" "R" "hola" &str);
+	ft_printf("hola jajaj caracter: %c\n  string: %s\n  memory address: %p\n", "R", "hola", str);
+	printf("memory address original: %p\n", str);
 	return (0);
 }
