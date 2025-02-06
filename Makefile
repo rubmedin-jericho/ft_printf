@@ -3,13 +3,13 @@ CC = cc
 AR = ar -rcs
 CFLAGS = -Wall -Werror -Wextra
 HEADER = ft_printf.h
-LIBFT = libft/libft.a
+LIBFT_A = libft.a
 SRCS = ft_printf.c \
 	   ft_printf_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
-all: LIBFT $(NAME)
+all: LIBFT $(NAME) 
 
 LIBFT:
 	@make -C libft
@@ -17,8 +17,11 @@ LIBFT:
 %.o: %.c $(HEADER) Makefile 
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS) $(HEADER) $(LIBFT)
-	$(AR) $(NAME) $(LIBFT) $(OBJS)  
+$(NAME): $(OBJS) $(HEADER) 
+	$(AR) $(NAME) $(OBJS)  
+
+c:
+	cd libft && cp libft.a ..
 
 clean:
 	@make clean -C libft
@@ -30,4 +33,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re c

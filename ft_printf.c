@@ -62,9 +62,10 @@ int ft_printf(char const *s, ...)
 {	
 	char *word;
 	int	i;
-
 	va_list v_args;
 
+	if(!s)
+		return (-1);
 	va_start(v_args, s);
 	word = (char *)s;
 	i = 0;
@@ -80,7 +81,7 @@ int ft_printf(char const *s, ...)
 		i++;
 	}
 	va_end(v_args);
-	return(0);
+	return(i);
 }
 //
 //int	main()
