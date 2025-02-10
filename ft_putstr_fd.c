@@ -16,13 +16,12 @@ void	ft_putstr_fd(char *s, int fd, int *count)
 {
 	int	i;
 
+	if(!s)
+		*count = -1;
 	i = 0;
-	while (s[i])
+	while (s[i] && *count != -1)
 	{
-		if(write(fd, &s[i], 1))
-			*coutn = -1;
+		ft_putchar_fd(s[i], fd, count);
 		i++;
-		if(*coutn != -1)
-			*count += 1;
 	}
 }

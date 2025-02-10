@@ -18,21 +18,23 @@ void	ft_putnbr_fd(int n, int fd, int *i)
 	{
 		if(write(fd, "-2", 2))
 				*i = -1;
+		if(*i != -1)
+			*i += 11;
 
 		n = 147483648;
 	}
 	if (n < 0)
 	{
-		ft_putchar_fd('-', fd, &i);
+		ft_putchar_fd('-', fd, i);
 		n = -n;
 	}
 	if (n >= 10)
 	{
-		ft_putnbr_fd(n / 10, fd);
-		ft_putchar_fd(n % 10 + '0', fd, &i);
+		ft_putnbr_fd(n / 10, fd, i);
+		ft_putchar_fd(n % 10 + '0', fd, i);
 	}
 	if (n < 10)
 	{
-		ft_putchar_fd(n % 10 + '0', fd, &i);
+		ft_putchar_fd(n % 10 + '0', fd, i);
 	}
 }
