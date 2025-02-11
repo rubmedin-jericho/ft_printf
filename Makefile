@@ -15,7 +15,8 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 %.o: %.c $(HEADER) Makefile 
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) -c $< -o $@ -g
+#	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJS) $(HEADER)
 	$(AR) $(NAME) $(OBJS) 

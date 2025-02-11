@@ -6,7 +6,7 @@
 /*   By: rubmedin <rubmedin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 16:20:48 by rubmedin          #+#    #+#             */
-/*   Updated: 2025/01/04 21:16:55 by rubmedin         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:34:03 by rubmedin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_putstr_fd(char *s, int fd, int *count)
 {
 	int	i;
 
-	if(!s)
+	if (!s)
 		*count = -1;
 	i = 0;
 	while (s[i] && *count != -1)
