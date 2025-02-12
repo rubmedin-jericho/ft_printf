@@ -11,14 +11,15 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 void	ptrnbr_base(unsigned long n, int base, int *i)
 {
 	char	*buff;
 
-	if ((void *)n == NULL)
+	if (!n)
 	{
-		if (write(1, "(nil)", 6) == -1)
+		if (write(1, "(nil)", 5) == -1)
 			*i = -1;
 		if (*i != -1)
 			*i += 5;
@@ -40,8 +41,6 @@ void	put_nbr(unsigned int n, int *i)
 	if (n >= 10)
 		put_nbr(n / 10, i);
 	ft_putchar_fd((n % 10) + '0', 1, i);
-	if (*i != -1)
-		*i += 1;
 }
 
 void	switch_function(char c, va_list arg, int *i)
@@ -53,13 +52,13 @@ void	switch_function(char c, va_list arg, int *i)
 	else if (c == 'p')
 		ptrnbr_base(va_arg(arg, unsigned long), 16, i);
 	else if (c == 'd' || c == 'i')
-		ft_putnbr_fd(va_arg(arg, int), 1, i);
+		ft_putnbr_fd(va_arg(arg, long), 1, i);
 	else if (c == 'u')
 		put_nbr(va_arg(arg, unsigned long), i);
 	else if (c == 'x')
-		print_hexa_low(va_arg(arg, unsigned int), i);
+		print_hexa_low(va_arg(arg, long), i);
 	else if (c == 'X')
-		print_hexa_upper(va_arg(arg, unsigned int), i);
+		print_hexa_upper(va_arg(arg, long), i);
 	else if (c == '%')
 		ft_putchar_fd('%', 1, i);
 }
@@ -88,22 +87,3 @@ int	ft_printf(char const *s, ...)
 	va_end(v_args);
 	return (i);
 }
-
-int	main(void)
-{
-	//char *str = "hola";
-//	ft_printf("caracter: %c\nstring: %s\nmemory address: %p\ndecimal:
-//		%d\ninteger: %i\ninteger sin signo: %u\nhexadecimal minuscula:
-//		%x\nhexa mayus %X\nporcentaje: %%\n", 'R', "hola", str, 234,
-//		1234567, -1235, 10, 10);
-//	printf("nbr_printf: %i\n", ft_printf("%s", str));
-//	printf("nbr_original_printf: %i\n", ft_printf("%s\n", "hola"));
-//	ft_printf("", 'c');
-	char *str = "hola";
-	unsigned long	i = 20;
-	int nbrs = ft_printf("\nstr:%s\nchar:%c\nptr:%p\nnbr:%d\nint:%i\nint_uns:%u\nhexa_min:%x\nhexa_max:%X\nprint%:%%\n", str, 'A', str, i, i, -2, 11, 11);
-	ft_printf("\nnbr_total:%i\n", nbrs);
-	printf("\nnbr_total:%i\n", printf("\nstr:%s\nchar:%c\nptr:%p\nnbr:%d\nint:%i\nint_uns:%u\nhexa_min:%x\nhexa_max:%X\nprint%:%%\n", str, 'A', str, i, i, -2, 11, 11));
-	return (0);
-}
-

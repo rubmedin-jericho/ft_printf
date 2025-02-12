@@ -17,7 +17,13 @@ void	ft_putstr_fd(char *s, int fd, int *count)
 	int	i;
 
 	if (!s)
-		*count = -1;
+	{
+		if (write(1, "(null)", 6) == -1)
+			*count = -1;
+		if (*count != -1)
+			*count += 6;
+		return ;
+	}
 	i = 0;
 	while (s[i] && *count != -1)
 	{

@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include <unistd.h>
-# include <stdio.h>
+# include <limits.h>
 
 int		ft_printf(char const *s, ...);
 void	ptrnbr_base(unsigned long n, int base, int *i);
@@ -27,5 +27,5 @@ void	ft_putchar_fd(char c, int fd, int *i);
 void	ft_putnbr_fd(int n, int fd, int *i);
 int		ft_isalpha(int c);
 void	ft_putstr_fd(char *s, int fd, int *count);
-
+size_t	ft_strlen(const char *s);
 #endif
