@@ -6,12 +6,11 @@
 /*   By: rubmedin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:36:19 by rubmedin          #+#    #+#             */
-/*   Updated: 2025/02/12 20:15:17 by rubmedin         ###   ########.fr       */
+/*   Updated: 2025/02/14 21:06:08 by rubmedin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 void	print_hexa_low(unsigned int n, int *i)
 {

@@ -6,42 +6,11 @@
 /*   By: rubmedin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:25:48 by rubmedin          #+#    #+#             */
-/*   Updated: 2025/02/11 16:32:17 by rubmedin         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:31:16 by rubmedin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
-
-void	ptrnbr_base(unsigned long n, int base, int *i)
-{
-	char	*buff;
-
-	if (!n)
-	{
-		if (write(1, "(nil)", 5) == -1)
-			*i = -1;
-		if (*i != -1)
-			*i += 5;
-		return ;
-	}
-	buff = "0123456789abcdef";
-	if (n >= (unsigned long)base)
-		ptrnbr_base((n / base), base, i);
-	else if (n < (unsigned long)base && (void *)n != NULL)
-	{
-		ft_putchar_fd('0', 1, i);
-		ft_putchar_fd('x', 1, i);
-	}
-	ft_putchar_fd(buff[n % base], 1, i);
-}
-
-void	put_nbr(unsigned int n, int *i)
-{
-	if (n >= 10)
-		put_nbr(n / 10, i);
-	ft_putchar_fd((n % 10) + '0', 1, i);
-}
 
 void	switch_function(char c, va_list arg, int *i)
 {
@@ -63,27 +32,41 @@ void	switch_function(char c, va_list arg, int *i)
 		ft_putchar_fd('%', 1, i);
 }
 
+int	verify_case(char c)
+{
+	char	*case_buffer;
+	int		count;
+
+	case_buffer = "cspdiuxX%";
+	count = 0;
+	while (case_buffer[count])
+	{
+		if (case_buffer[count] == c)
+			return (1);
+		count++;
+	}
+	return (0);
+}
+
 int	ft_printf(char const *s, ...)
 {
-	int		i;
+	int		count;
 	va_list	v_args;
+	int		i;
 
-	if (!s)
+	if (!s || write(1, "", 0) == -1)
 		return (-1);
 	va_start(v_args, s);
+	count = 0;
 	i = 0;
-	while (*s && i != -1)
+	while (s[i] && i != -1)
 	{
-		if ((*s != '%') || (*s == '%' && !(ft_isalpha(*(s + 1)) \
-						|| *(s + 1) == '%')))
-			ft_putchar_fd(*s, 1, &i);
-		else if ((*s == '%') && (ft_isalpha(*(s + 1)) || *(s + 1) == '%'))
-		{
-			switch_function((char)*(s + 1), v_args, &i);
-			s++;
-		}
-		s++;
+		if (s[i] == '%' && verify_case(s[i + 1]))
+			switch_function(s[++i], v_args, &count);
+		else
+			ft_putchar_fd(s[i], 1, &count);
+		i++;
 	}
 	va_end(v_args);
-	return (i);
+	return (count);
 }

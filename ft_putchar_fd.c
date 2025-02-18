@@ -6,7 +6,7 @@
 /*   By: rubmedin <rubmedin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/24 10:16:24 by rubmedin          #+#    #+#             */
-/*   Updated: 2025/02/11 16:33:37 by rubmedin         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:45:00 by rubmedin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_putchar_fd(char c, int fd, int *i)
 {
-	if (write(fd, &c, 1) == -1)
-		*i = -1;
-	if (*i != -1)
-		*i += 1;
+	write(fd, &c, 1);
+	*i += 1;
 }

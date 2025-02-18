@@ -28,4 +28,5 @@ void	ft_putnbr_fd(int n, int fd, int *i);
 int		ft_isalpha(int c);
 void	ft_putstr_fd(char *s, int fd, int *count);
 size_t	ft_strlen(const char *s);
+int		verify_case(char c);
 #endif

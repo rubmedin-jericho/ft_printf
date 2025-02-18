@@ -41,3 +41,31 @@ void	ft_putnbr_fd(int n, int fd, int *i)
 	else if (n < 10 && n > INT_MIN)
 		ft_putchar_fd(n % 10 + '0', fd, i);
 }
+
+void	ptrnbr_base(unsigned long n, int base, int *i)
+{
+	char	*buff;
+
+	if (!n)
+	{
+		write(1, "(nil)", 5);
+		*i += 5;
+		return ;
+	}
+	buff = "0123456789abcdef";
+	if (n >= (unsigned long)base)
+		ptrnbr_base((n / base), base, i);
+	else if (n < (unsigned long)base && (void *)n != NULL)
+	{
+		ft_putchar_fd('0', 1, i);
+		ft_putchar_fd('x', 1, i);
+	}
+	ft_putchar_fd(buff[n % base], 1, i);
+}
+
+void	put_nbr(unsigned int n, int *i)
+{
+	if (n >= 10)
+		put_nbr(n / 10, i);
+	ft_putchar_fd((n % 10) + '0', 1, i);
+}

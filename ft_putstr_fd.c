@@ -18,10 +18,8 @@ void	ft_putstr_fd(char *s, int fd, int *count)
 
 	if (!s)
 	{
-		if (write(1, "(null)", 6) == -1)
-			*count = -1;
-		if (*count != -1)
-			*count += 6;
+		write(1, "(null)", 6);
+		*count += 6;
 		return ;
 	}
 	i = 0;
