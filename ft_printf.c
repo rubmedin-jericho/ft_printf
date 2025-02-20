@@ -6,7 +6,7 @@
 /*   By: rubmedin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/31 18:25:48 by rubmedin          #+#    #+#             */
-/*   Updated: 2025/02/18 17:31:16 by rubmedin         ###   ########.fr       */
+/*   Updated: 2025/02/20 00:05:18 by rubmedin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,8 @@ void	switch_function(char c, va_list arg, int *i)
 		print_hexa_upper(va_arg(arg, long), i);
 	else if (c == '%')
 		ft_putchar_fd('%', 1, i);
-}
-
-int	verify_case(char c)
-{
-	char	*case_buffer;
-	int		count;
-
-	case_buffer = "cspdiuxX%";
-	count = 0;
-	while (case_buffer[count])
-	{
-		if (case_buffer[count] == c)
-			return (1);
-		count++;
-	}
-	return (0);
+	else
+		*i = -1;
 }
 
 int	ft_printf(char const *s, ...)
@@ -54,14 +40,14 @@ int	ft_printf(char const *s, ...)
 	va_list	v_args;
 	int		i;
 
-	if (!s || write(1, "", 0) == -1)
+	if (!s)
 		return (-1);
 	va_start(v_args, s);
 	count = 0;
 	i = 0;
-	while (s[i] && i != -1)
+	while (s[i] && count != -1)
 	{
-		if (s[i] == '%' && verify_case(s[i + 1]))
+		if (s[i] == '%')
 			switch_function(s[++i], v_args, &count);
 		else
 			ft_putchar_fd(s[i], 1, &count);
